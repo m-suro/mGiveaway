@@ -296,6 +296,12 @@ public class ConfigUtil {
             config.set(CONFIG_VERSION, "0.7.3");
             instance.getLogger().info("Config updated to version 0.7.3!");
         }
+        if (isLowerThan(version, "0.7.4")) {
+            config.set(MESSAGES_GLOBAL_NO_WINNERS, getOrDefault(MESSAGES_GLOBAL_NO_WINNERS));
+            // Config version
+            config.set(CONFIG_VERSION, "0.7.4");
+            instance.getLogger().info("Config updated to version 0.7.4!");
+        }
         saveConfig();
         reloadConfig();
      }
@@ -358,6 +364,7 @@ public class ConfigUtil {
     public static final String UPDATE_AVAILABLE = "messages.in_game.update_available";
     public static final String UPDATE_AVAILABLE_HOVER = "messages.in_game.update_available_hover";
 
+    public static final String MESSAGES_GLOBAL_NO_WINNERS = "messages.global.no_winners";
 
     public static final String GIVEAWAY_EMBED = "discord.bot.giveaway_embed";
     public static final String GIVEAWAY_END_EMBED = "discord.bot.giveaway_end_embed";

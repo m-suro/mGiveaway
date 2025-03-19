@@ -19,6 +19,7 @@ import net.dv8tion.jda.api.interactions.modals.Modal;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Arrays;
+import java.util.Map;
 import java.util.Objects;
 
 public class DiscordListener extends ListenerAdapter {
@@ -67,10 +68,10 @@ public class DiscordListener extends ListenerAdapter {
             String command = commandOption.getAsString();
             boolean requirements = requirementsOption != null && requirementsOption.getAsBoolean();
             if (!ConfigUtil.createGiveaway(name, prize, minecraftPrize, duration, winners, command, requirements)) {
-                String desc = ConfigUtil.getAndValidate(ConfigUtil.MESSAGE_DISCORD_GIVEAWAY_COMMAND_ERROR_ALREADY_EXISTS).replace("%name%", name);
+                String desc = TextUtil.replacePlaceholders(ConfigUtil.getAndValidate(ConfigUtil.MESSAGE_DISCORD_GIVEAWAY_COMMAND_ERROR_ALREADY_EXISTS), Map.of("%name%", name));
                 event.replyEmbeds(EmbedUtil.getReplyEmbed(false, desc)).setEphemeral(true).queue();
             } else {
-                String desc = ConfigUtil.getAndValidate(ConfigUtil.MESSAGE_DISCORD_GIVEAWAY_COMMAND_SUCCESS_CREATED).replace("%name%", name);
+                String desc = TextUtil.replacePlaceholders(ConfigUtil.getAndValidate(ConfigUtil.MESSAGE_DISCORD_GIVEAWAY_COMMAND_SUCCESS_CREATED), Map.of("%name%", name));
                 event.replyEmbeds(EmbedUtil.getReplyEmbed(true, desc)).setEphemeral(true).queue();
                 GiveawayManager manager = instance.getGiveawayManager();
                 Giveaway giveaway = manager.listGiveaways().get(name);
@@ -106,7 +107,7 @@ public class DiscordListener extends ListenerAdapter {
             return;
         }
         if (giveaway.entries().containsKey(event.getUser().getId())) {
-            String msg = ConfigUtil.getAndValidate(ConfigUtil.MESSAGES_DISCORD_GIVEAWAY_JOIN_ALREADY_JOINED).replace("%player%", giveaway.entries().get(event.getUser().getId()));
+            String msg = TextUtil.replacePlaceholders(ConfigUtil.getAndValidate(ConfigUtil.MESSAGES_DISCORD_GIVEAWAY_JOIN_ALREADY_JOINED), Map.of("%player%", giveaway.entries().get(event.getUser().getId())));
             event.replyEmbeds(EmbedUtil.getReplyEmbed(false, msg)).setEphemeral(true).queue();
             return;
         }
@@ -143,7 +144,7 @@ public class DiscordListener extends ListenerAdapter {
         }
         // Check if this discord user is already joined
         if (giveaway.entries().containsKey(event.getUser().getId())) {
-            String msg = ConfigUtil.getAndValidate(ConfigUtil.MESSAGES_DISCORD_GIVEAWAY_JOIN_ALREADY_JOINED).replace("%player%", giveaway.entries().get(event.getUser().getId()));
+            String msg = TextUtil.replacePlaceholders(ConfigUtil.getAndValidate(ConfigUtil.MESSAGES_DISCORD_GIVEAWAY_JOIN_ALREADY_JOINED), Map.of("%player%", giveaway.entries().get(event.getUser().getId())));
             event.replyEmbeds(EmbedUtil.getReplyEmbed(false, msg)).setEphemeral(true).queue();
             return;
         }
@@ -158,7 +159,7 @@ public class DiscordListener extends ListenerAdapter {
             if (unmetRequirements.isEmpty()) {
                 // Player meets all requirements - proceed with entry
                 instance.getGiveawayManager().addEntry(giveaway, event.getUser().getId(), nick);
-                String msg = ConfigUtil.getAndValidate("messages.discord.giveaway_join.joined").replace("%player%", nick);
+                String msg = TextUtil.replacePlaceholders(ConfigUtil.getAndValidate("messages.discord.giveaway_join.joined"), Map.of("%player%", nick));
                 event.replyEmbeds(EmbedUtil.getReplyEmbed(true, msg)).setEphemeral(true).queue();
                 ConfigUtil.updateStat(event.getUser().getId(), 1);
                 MessageEmbed embed = EmbedUtil.getEmbedBuilderFromConfig(giveaway, 1).build();
@@ -178,7 +179,7 @@ public class DiscordListener extends ListenerAdapter {
                     else sb.append(requirement.getFormatted());
                     i++;
                 }
-                String msg = ConfigUtil.getAndValidate(ConfigUtil.MESSAGES_DISCORD_GIVEAWAY_REQUIREMENT_ERROR_REQUIREMENTS_NOT_MET).replace("%requirements%", sb.toString());
+                String msg = TextUtil.replacePlaceholders(ConfigUtil.getAndValidate(ConfigUtil.MESSAGES_DISCORD_GIVEAWAY_REQUIREMENT_ERROR_REQUIREMENTS_NOT_MET), Map.of("%requirements%", sb.toString()));
                 event.replyEmbeds(EmbedUtil.getReplyEmbed(false, msg)).setEphemeral(true).queue();
             }
         });

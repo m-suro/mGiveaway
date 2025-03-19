@@ -4,7 +4,7 @@
   <groupId>me.msuro</groupId>
   <artifactId>mGiveaway</artifactId>
   <name>mGiveaway</name>
-  <version>0.7.3</version>
+  <version>0.7.4</version>
   <build>
     <defaultGoal>clean package</defaultGoal>
     <resources>

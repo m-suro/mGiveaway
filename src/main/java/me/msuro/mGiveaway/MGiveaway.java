@@ -18,6 +18,7 @@ import org.bukkit.scheduler.BukkitTask;
 import java.time.Duration;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.concurrent.Callable;
 @SuppressWarnings("deprecation")
 public final class MGiveaway extends JavaPlugin {
@@ -319,10 +320,11 @@ public final class MGiveaway extends JavaPlugin {
                     } else if (!giveaway.state().equals(Giveaway.State.ENDED)
                             && giveaway.state().equals(Giveaway.State.STARTED)
                             && n[0] % interval == 0) {
-                        Bukkit.broadcastMessage(TextUtil.process(message
-                                .replace("%winners%", String.valueOf(giveaway.winCount()))
-                                .replace("%prize%", giveaway.minecraftPrize())
-                                .replace("%time_left%", giveaway.getTimeLeft())));
+                        Bukkit.broadcastMessage(TextUtil.process(TextUtil.replacePlaceholders(message, Map.of(
+                                "%win_count%", String.valueOf(giveaway.winCount()),
+                                "%prize%", giveaway.minecraftPrize(),
+                                "%time_left%", giveaway.getTimeLeft()
+                        ))));
                         n[0] = 0;
                     }
                 }

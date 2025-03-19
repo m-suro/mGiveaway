@@ -7,7 +7,7 @@
 
     <groupId>me.msuro</groupId>
     <artifactId>mGiveaway</artifactId>
-    <version>0.7.3</version>
+    <version>0.7.4</version>
     <packaging>jar</packaging>
     <name>mGiveaway</name>
 

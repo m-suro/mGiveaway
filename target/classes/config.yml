@@ -1,7 +1,7 @@
 prefix: "&#249D67&lG&#2BAB72&lI&#31B97C&lV&#38C787&lE&#3ED592&lA&#45E39D&lW&#4BF1A7&lA&#52FFB2&lY&f "
 # How often the giveaway message should be broadcasted in seconds (with error margin of 1 minute)
 broadcast_interval: 1800
-broadcast_message: "%prefix% &fA giveaway is happening on our &#52FFB2Discord&f for %winners% winners to get &#52FFB2%prize%&f! Ends in: &#52FFB2%time_left%&f. Join the &#52FFB2#giveaway&f channel on Discord! [/dc]"
+broadcast_message: "%prefix% &fA giveaway is happening on our &#52FFB2Discord&f for %win_count% winners to get &#52FFB2%prize%&f! Ends in: &#52FFB2%time_left%&f. Join the &#52FFB2#giveaway&f channel on Discord! [/dc]"
 
 discord:
   bot:
@@ -113,6 +113,8 @@ discord:
       }
 
 messages:
+  global:
+    no_winners: "No winners!"
   discord:
     embed_title:
       success: "Success!"
@@ -148,10 +150,10 @@ messages:
     update_available: "%prefix% &fYou're running an old version! &7%new_version% &fis available on &#52FFB2&lModrinth"
     update_available_hover: "&7&8&n&oClick to open the mGiveaway page on Modrinth"
     giveaway_info_personal:
-      on_join: "%prefix% &fThere's a giveaway happening on our &#52FFB2Discord&f for %winners% winners to get &#52FFB2%prize%&f! Ends in: &#52FFB2%time_left%&f. Join the &#52FFB2#giveaway&f channel on Discord! [/dc]"
+      on_join: "%prefix% &fThere's a giveaway happening on our &#52FFB2Discord&f for %win_count% winners to get &#52FFB2%prize%&f! Ends in: &#52FFB2%time_left%&f. Join the &#52FFB2#giveaway&f channel on Discord! [/dc]"
     giveaway_info_global:
-      on_start: "%prefix% &fA giveaway is happening on our &#52FFB2Discord&f for %winners% winners to get &#52FFB2%prize%&f! Ends in: &#52FFB2%time_left%&f. Join the &#52FFB2#giveaway&f channel on Discord! [/dc]"
-      on_end: "%prefix% &fThe giveaway has ended! %winners% winners got &#52FFB2%prize%&f! Join the &#52FFB2#giveaway&f channel on Discord! [/dc]"
+      on_start: "%prefix% &fA giveaway is happening on our &#52FFB2Discord&f for %win_count% winners to get &#52FFB2%prize%&f! Ends in: &#52FFB2%time_left%&f. Join the &#52FFB2#giveaway&f channel on Discord! [/dc]"
+      on_end: "%prefix% &fThe giveaway has ended! %win_count% winners got &#52FFB2%prize%&f! Join the &#52FFB2#giveaway&f channel on Discord! [/dc]"
 
 
 
@@ -197,4 +199,4 @@ giveaways:
         mcgramy-giveaway: true
 
 # DO NOT EDIT THIS VALUE
-config_version: 0.7
+config_version: 0.7.4
