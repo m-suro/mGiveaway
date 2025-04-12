@@ -52,9 +52,7 @@ public class DiscordUtil {
         jda.getPresence().setStatus(getStatus());
         logActivity();
         logStatus();
-        // todo STATUS updating doesn't work!!
     }
-
 
     private Activity getActivity() {
         String activity = ConfigUtil.getAndValidate(ConfigUtil.ACTIVITY);

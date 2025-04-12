@@ -31,7 +31,7 @@ public class PlayerListener implements Listener {
                     if (giveaway.state() == Giveaway.State.STARTED) {
                         String message = TextUtil.process(TextUtil.replacePlaceholders(ConfigUtil.getAndValidate(ConfigUtil.GIVEAWAY_INFO_PERSONAL_ON_JOIN), Map.of(
                                 "%name%", giveaway.name(),
-                                "%prize%", giveaway.prize(),
+                                "%prize%", giveaway.minecraftPrize(),
                                 "%time_left%", giveaway.getTimeLeft(),
                                 "%win_count%", String.valueOf(giveaway.winCount())
                         )));
