@@ -3,16 +3,10 @@
   <component name="FacetManager">
     <facet type="minecraft" name="Minecraft">
       <configuration>
-        <userChosenTypes>
-          <map>
-            <entry key="BUKKIT" value="false" />
-            <entry key="SPIGOT" value="false" />
-            <entry key="PAPER" value="false" />
-          </map>
-        </userChosenTypes>
         <autoDetectTypes>
           <platformType>PAPER</platformType>
-          <platformType>ADVENTURE</platformType>
+          <platformType>SPIGOT</platformType>
+          <platformType>BUKKIT</platformType>
         </autoDetectTypes>
         <projectReimportVersion>1</projectReimportVersion>
       </configuration>

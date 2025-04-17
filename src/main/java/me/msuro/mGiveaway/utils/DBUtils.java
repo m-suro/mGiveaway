@@ -2,6 +2,7 @@ package me.msuro.mGiveaway.utils;
 
 import me.msuro.mGiveaway.MGiveaway;
 import me.msuro.mGiveaway.Giveaway;
+import org.bukkit.scheduler.BukkitTask;
 
 import java.io.File;
 import java.sql.*;
@@ -88,12 +89,26 @@ public class DBUtils {
         HashMap<String, String> entries = giveaway.entries();
         createGiveawayTable(giveaway.name());
         if (entries == null || entries.isEmpty()) return;
-        try (Connection conn = getConnection()) {
-            instance.getLogger().info("Saving entries for giveaway: " + giveaway.name() + " (" + entries.size() + ")");
-            for (Map.Entry<String, String> entry : entries.entrySet()) {
-                saveEntry(giveaway.name(), entry.getKey(), entry.getValue());
-            }
 
+        try (Connection conn = getConnection()) {
+            conn.setAutoCommit(false);
+            String sql = "INSERT OR REPLACE INTO `entries-" + giveaway.name() + "` (discord_id, minecraft_name) VALUES (?, ?)";
+
+            try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+                instance.getLogger().info("Saving entries for giveaway: " + giveaway.name() + " (" + entries.size() + ")");
+
+                for (Map.Entry<String, String> entry : entries.entrySet()) {
+                    pstmt.setString(1, entry.getKey());
+                    pstmt.setString(2, entry.getValue());
+                    pstmt.addBatch();
+                }
+
+                pstmt.executeBatch();
+                conn.commit();
+            } catch (SQLException e) {
+                conn.rollback();
+                throw e;
+            }
         } catch (SQLException e) {
             MGiveaway.setPaused(true);
             instance.getLogger().severe("Giveaways paused! Reload the plugin to try again!");

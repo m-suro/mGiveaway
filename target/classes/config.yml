@@ -150,6 +150,8 @@ messages:
     update_available: "%prefix% &fYou're running an old version! &7%new_version% &fis available on &#52FFB2&lModrinth"
     update_available_hover: "&7&8&n&oClick to open the mGiveaway page on Modrinth"
     giveaway_info_personal:
+      # How long to wait before sending the on_join message in ticks (20 ticks = 1 second)
+      on_join_wait: 120
       on_join: "%prefix% &fThere's a giveaway happening on our &#52FFB2Discord&f for %win_count% winners to get &#52FFB2%prize%&f! Ends in: &#52FFB2%time_left%&f. Join the &#52FFB2#giveaway&f channel on Discord! [/dc]"
     giveaway_info_global:
       on_start: "%prefix% &fA giveaway is happening on our &#52FFB2Discord&f for %win_count% winners to get &#52FFB2%prize%&f! Ends in: &#52FFB2%time_left%&f. Join the &#52FFB2#giveaway&f channel on Discord! [/dc]"
