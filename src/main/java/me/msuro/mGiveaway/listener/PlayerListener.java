@@ -23,6 +23,7 @@ public class PlayerListener implements Listener {
 
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent event) {
+        long delay = ConfigUtil.getInt(ConfigUtil.GIVEAWAY_INFO_PERSONAL_ON_JOIN_WAIT);
         instance.getServer().getScheduler().runTaskLater(instance, new Runnable() {
             @Override
             public void run() {
@@ -39,6 +40,6 @@ public class PlayerListener implements Listener {
                     }
                 }
             }
-        }, 20L);
+        }, delay);
     }
 }

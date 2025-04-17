@@ -2,6 +2,7 @@ package me.msuro.mGiveaway.utils;
 
 import me.msuro.mGiveaway.MGiveaway;
 import me.msuro.mGiveaway.Giveaway;
+import org.bukkit.scheduler.BukkitTask;
 
 import java.io.File;
 import java.sql.*;
