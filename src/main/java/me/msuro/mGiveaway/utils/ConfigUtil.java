@@ -123,6 +123,32 @@ public class ConfigUtil {
         return value;
     }
 
+    /**
+     * Gets an integer value from the config file and validates it.
+     * Reports a warning if the value is set to default -2147483648.
+     * Returns -2147483648 if the value is not set. (Sends an error message)
+     *
+     * @param key The key of the value to get
+     * @return The value if it exists, -2147483648 otherwise
+     */
+    public static Integer getIntOrDefault(String key) {
+        int value = config.getInt(key, -2147483648);
+        if (value == -2147483648) {
+            InputStream defaultConfigStream = instance.getResource("config.yml");
+            if (defaultConfigStream == null) {
+                instance.getLogger().severe("Default config not found!");
+                return -2147483648;
+            }
+            YamlConfiguration defaultConfig = YamlConfiguration.loadConfiguration(new InputStreamReader(defaultConfigStream));
+            value = defaultConfig.getInt(key, -2147483648);
+            if (value == -2147483648) {
+                instance.getLogger().severe("Default config value " + key + " not found!");
+                return -2147483648;
+            }
+        }
+        return value;
+    }
+
     public static String getOptional(String key) {
         return config.getString(key);
     }
@@ -303,7 +329,7 @@ public class ConfigUtil {
             instance.getLogger().info("Config updated to version 0.7.4!");
         }
         if (isLowerThan(version, "0.7.6")) {
-            config.set(GIVEAWAY_INFO_PERSONAL_ON_JOIN_WAIT, getOrDefault(GIVEAWAY_INFO_PERSONAL_ON_JOIN_WAIT));
+            config.set(GIVEAWAY_INFO_PERSONAL_ON_JOIN_WAIT, getIntOrDefault(GIVEAWAY_INFO_PERSONAL_ON_JOIN_WAIT));
             // Config version
             config.set(CONFIG_VERSION, "0.7.6");
             instance.getLogger().info("Config updated to version 0.7.6!");
