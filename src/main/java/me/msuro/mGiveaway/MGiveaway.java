@@ -168,10 +168,7 @@ public final class MGiveaway extends JavaPlugin {
         // Save entries for all giveaways (using GiveawayManager)
         if (giveawayManager != null) {
             for (Giveaway giveaway : giveawayManager.listGiveaways().values()) {
-                dbUtils.saveEntries(giveaway).exceptionally(ex -> {
-                    getLogger().severe("Failed to save entries for giveaway: " + giveaway.name() + ". Error: " + ex.getMessage());
-                    return null;
-                });
+                dbUtils.saveEntries(giveaway);
             }
         }
 
@@ -232,10 +229,7 @@ public final class MGiveaway extends JavaPlugin {
         onDisable();
 
         for (Giveaway giveaway : giveawayManager.listGiveaways().values()) {
-            dbUtils.saveEntries(giveaway).exceptionally(ex -> {
-                getLogger().severe("Failed to save entries for giveaway: " + giveaway.name() + ". Error: " + ex.getMessage());
-                return null;
-            });
+            dbUtils.saveEntries(giveaway);
         }
         giveawayManager.clearGiveaways();
 
@@ -289,10 +283,7 @@ public final class MGiveaway extends JavaPlugin {
             if (!isPaused()) {
                 for (Giveaway giveaway : new ArrayList<>(giveawayManager.listGiveaways().values())) {
                     if (giveaway.state() == Giveaway.State.STARTED)
-                        dbUtils.saveEntries(giveaway).exceptionally(ex -> {
-                            getLogger().severe("Failed to save entries for giveaway: " + giveaway.name() + ". Error: " + ex.getMessage());
-                            return null;
-                        });
+                        dbUtils.saveEntries(giveaway);
                 }
             }
         }, 120, 20 * 60 * 10);
